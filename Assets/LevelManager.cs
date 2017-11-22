@@ -10,23 +10,37 @@ public class LevelManager : MonoBehaviour {
 	private int currentLevelNum;
 	
 	void Awake () {
-		NextLevel();
+		// NextLevel();
 	}
 	
-	void LevelEnd () {
-		if (currentLevelNum < levelQueue.Length)
-		{
-			// NextLevel();
-			MoveCamera();
-		}else{
-			NextScene();
-		}
+	void LevelEnd (Vector2 nextCameraPos) {
+		
+		Camera.main.transform.position = (Vector3)nextCameraPos + Vector3.forward * -10;
+		Debug.Log("Moved Camera!");
+		
+		// if (currentLevelNum < levelQueue.Length)
+		// {
+			// // NextLevel();
+			// MoveCamera(nextLevel);
+		// }else{
+			// NextScene();
+		// }
 	}
 	
-	void MoveCamera () {
+	void MoveCamera (GameObject nextLevel) {
 		
 		// Camera.main.transform.Translate(Vector3.right * 18);
-		Camera.main.transform.position = levelQueue[currentLevelNum].transform.position + Vector3.forward * -10;
+		
+		Vector3 nextCameraPos = Vector3.zero;
+		
+		if (nextLevel != null)
+		{
+			// nextLevel.transform.position + Vector3.forward * -10;
+		}else{
+			
+		}
+		
+		Camera.main.transform.position = nextCameraPos;
 		Debug.Log("Moved Camera!");
 		
 		currentLevelNum++;
@@ -53,10 +67,10 @@ public class LevelManager : MonoBehaviour {
 	
 	
 	void OnEnable () {
-		Messenger.AddListener("LevelEnd", LevelEnd);
+		Messenger<Vector2>.AddListener("LevelEnd", LevelEnd);
 	}
 	
 	void OnDisable () {
-		Messenger.RemoveListener("LevelEnd", LevelEnd);
+		Messenger<Vector2>.RemoveListener("LevelEnd", LevelEnd);
 	}
 }
