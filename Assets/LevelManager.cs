@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
 	
+	public int startingLevel; // for testing yo
+	
 	public GameObject[] levelQueue;
 	
 	private GameObject levelGO;
@@ -24,8 +26,8 @@ public class LevelManager : MonoBehaviour {
 			levelChunk[i].SetActive(false);
 		}
 		
-		levelChunk[0].SetActive(true);
-		currentChunkNum = 0;
+		levelChunk[startingLevel].SetActive(true);
+		currentChunkNum = startingLevel;
 	}
 	
 	void Start () {
