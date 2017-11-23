@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class BumpEngine : MonoBehaviour {
 	
-	public string[] bumpStrings = new string[]{"Woops", "Excuse me", "Sorry about that", "Coming through", "Give me a moment"};
+	private string[] bumpStrings = new string[]{"Woops", "Excuse me", "Sorry about that", "Coming through!", "How rude", "Butterfingers",
+				"Little to the left", "Any day now", "Give me a moment", "Watch your feet", "Oooh that one stung", "Heavens above!", "Ow", 
+				"If I can just squeeze past", "Any minute now", "Need a new approach", "Nearly there", "So close", "Back of the net"};
 	
 	public float displayTime = 0.5f;
 	public Text bumpTextBox;
@@ -20,7 +22,7 @@ public class BumpEngine : MonoBehaviour {
 	
 	void OnCollisionEnter2D (Collision2D other) {
 		
-		Debug.Log(other.gameObject.name);
+		// Debug.Log(other.gameObject.name);
 		
 		if (displaying == false)
 		{

@@ -56,9 +56,8 @@ public class LevelManager : MonoBehaviour {
 		int closestID = 0;
 		float closestDistance = 10000000;
 		
-		for (int i = 1; i < levelChunk.Count; i++)
+		for (int i = 0; i < levelChunk.Count; i++)
 		{
-			
 			float distance = Vector2.Distance(endPos, levelChunk[i].transform.position);
 			
 			if (distance < closestDistance)
@@ -68,6 +67,8 @@ public class LevelManager : MonoBehaviour {
 			}
 			
 		}
+		
+		Debug.Log("Loading " + levelChunk[closestID].name);
 		
 		levelChunk[closestID].SetActive(true);
 		Camera.main.transform.position = levelChunk[closestID].transform.position + Vector3.forward * -10;
