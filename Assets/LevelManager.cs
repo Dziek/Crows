@@ -9,22 +9,69 @@ public class LevelManager : MonoBehaviour {
 	private GameObject levelGO;
 	private int currentLevelNum;
 	
+	private int currentChunkNum;
+	
+	private List<GameObject> levelChunk;
+	
 	void Awake () {
 		// NextLevel();
+		
+		levelChunk = new List<GameObject>();
+		
+		for (int i = 0; i < transform.childCount; i++)
+		{
+			levelChunk.Add(transform.GetChild(i).gameObject);
+			levelChunk[i].SetActive(false);
+		}
+		
+		levelChunk[0].SetActive(true);
+		currentChunkNum = 0;
 	}
 	
-	void LevelEnd (Vector2 nextCameraPos) {
-		
-		Camera.main.transform.position = (Vector3)nextCameraPos + Vector3.forward * -10;
-		Debug.Log("Moved Camera!");
-		
-		// if (currentLevelNum < levelQueue.Length)
+	void Start () {
+		// for (int i = 1; i < levelChunk.Count; i++)
 		// {
-			// // NextLevel();
-			// MoveCamera(nextLevel);
-		// }else{
-			// NextScene();
+			// levelChunk[i].SetActive(false);
 		// }
+	}
+	
+	// void LevelEnd (Vector2 nextCameraPos) {
+		
+		// Camera.main.transform.position = (Vector3)nextCameraPos + Vector3.forward * -10;
+		// Debug.Log("Moved Camera!");
+		
+		// // if (currentLevelNum < levelQueue.Length)
+		// // {
+			// // // NextLevel();
+			// // MoveCamera(nextLevel);
+		// // }else{
+			// // NextScene();
+		// // }
+	// }
+	
+	void LevelEnd (Vector2 endPos) {
+		
+		int closestID = 0;
+		float closestDistance = 10000000;
+		
+		for (int i = 1; i < levelChunk.Count; i++)
+		{
+			
+			float distance = Vector2.Distance(endPos, levelChunk[i].transform.position);
+			
+			if (distance < closestDistance)
+			{
+				closestDistance = distance;
+				closestID = i;
+			}
+			
+		}
+		
+		levelChunk[closestID].SetActive(true);
+		Camera.main.transform.position = levelChunk[closestID].transform.position + Vector3.forward * -10;
+		
+		levelChunk[currentChunkNum].SetActive(false);
+		currentChunkNum = closestID;
 	}
 	
 	void MoveCamera (GameObject nextLevel) {
@@ -62,7 +109,9 @@ public class LevelManager : MonoBehaviour {
 	}
 	
 	
-	
+	public void AddChunk (GameObject chunk) {
+		levelChunk.Add(chunk);
+	}
 	
 	
 	

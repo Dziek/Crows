@@ -38,7 +38,8 @@ public class LevelEnd : MonoBehaviour {
 				Debug.Log("NCP " + nextCameraPos);
 			}
 			
-			Messenger<Vector2>.Broadcast("LevelEnd", nextCameraPos);
+			// Messenger<Vector2>.Broadcast("LevelEnd", nextCameraPos);
+			Messenger<Vector2>.Broadcast("LevelEnd", transform.position);
 			gameObject.SetActive(false);
 		}
 	}
