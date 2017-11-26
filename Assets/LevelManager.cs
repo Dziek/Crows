@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour {
 		{
 			float distance = Vector2.Distance(endPos, levelChunk[i].transform.position);
 			
-			if (distance < closestDistance)
+			if (distance < closestDistance && levelChunk[i] != levelChunk[currentChunkNum])
 			{
 				closestDistance = distance;
 				closestID = i;
